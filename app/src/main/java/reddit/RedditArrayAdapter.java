@@ -41,6 +41,8 @@ public class RedditArrayAdapter extends ArrayAdapter<Reddit> {
         title.setText(redditPost.getTitle());
         TextView score = (TextView) view.findViewById(R.id.score);
         score.setText(Integer.toString(redditPost.getScore()));
+        TextView subreddit = (TextView) view.findViewById(R.id.subreddit);
+        subreddit.setText(redditPost.getSubreddit());
         return view;
     }
 

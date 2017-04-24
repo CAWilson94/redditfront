@@ -1,53 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.v7.widget.LinearLayoutCompat
+
+        android:layout_row="0"
+        android:layout_column="0">
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="306dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_gravity="left|fill"
+        android:text="TextView" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/subreddit"
+        android:layout_width="306dp"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:layout_gravity="left|fill"
+        android:text="TextView" />
 
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_gravity="right|center_horizontal|center_vertical"
+        android:layout_row="0"
+        android:text="TextView" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="title" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/blank"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="SCORE:" />
-
-            </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/score"
-                android:layout_width="67dp"
-                android:layout_height="match_parent"
-                android:text="score" />
-        </LinearLayout>
-
-    </LinearLayout>
-</LinearLayout>
+</GridLayout>

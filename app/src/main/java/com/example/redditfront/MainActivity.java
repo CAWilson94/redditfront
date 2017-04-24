@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
 import reddit.Reddit;
@@ -35,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
         redditFrontButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Volley.reQuest(contextMain);
                 List<Reddit> reddit_list = RedditDbWrapper.getAllRedditPosts(contextMain);
-                System.out.println(reddit_list.get(0).getTitle() + "_________________________________");
+                Collections.reverse(reddit_list);
                 ArrayAdapter<Reddit> adapter = new RedditArrayAdapter(contextMain, 0, reddit_list);
                 listReddit.setAdapter(adapter);
             }

@@ -34,7 +34,7 @@ public class RedditDbWrapper extends DbWrapper {
     }
 
     public static List<Reddit> getAllRedditPosts(Context context) {
-        List<Reddit> foodWheels = new LinkedList<Reddit>();
+        List<Reddit> redditPosts = new LinkedList<Reddit>();
         // Reference to readable db
         SQLiteDatabase db = getReadableDatabase(context);
         // Build the query
@@ -47,12 +47,13 @@ public class RedditDbWrapper extends DbWrapper {
                 redditPost = new Reddit();
                 redditPost.setTitle(cursor.getString(1)); // May change
                 redditPost.setScore(Integer.parseInt(cursor.getString(3))); // May change
-                // add foodWheel to foodWheels
-                foodWheels.add(redditPost);
+                redditPost.setSubreddit(cursor.getString(2));
+                // add redditPost to redditPosts
+                redditPosts.add(redditPost);
             } while (cursor.moveToNext());
         }
         db.close();
-        // return all foodWheels
-        return foodWheels;
+        // return all reddit posts
+        return redditPosts;
     }
 }

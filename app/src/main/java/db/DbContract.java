@@ -8,7 +8,7 @@ import android.provider.BaseColumns;
 
 public class DbContract {
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "reddit.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String DOUBLE_TYPE = " DOUBLE";
