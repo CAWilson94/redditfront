@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import reddit.Reddit;
+import reddit.RedditDbWrapper;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 import static com.android.volley.toolbox.Volley.newRequestQueue;
 
 /**
@@ -28,23 +32,27 @@ import static com.android.volley.toolbox.Volley.newRequestQueue;
 public class Volley {
     public static String url = "http://httpbin.org/get?site=code&network=tutsplus";
     private static String frontPageURL = "https://www.reddit.com/.json";
-    public List<String> redditTitles = new ArrayList<String>();
 
-    public List<String> reQuest(Context context) {
+    public static void reQuest(final Context context) {
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest
                 (Request.Method.GET, frontPageURL, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        List<String> redditInner = new ArrayList<>();
                         // the response is already constructed as a JSONObject!
+                        String title = null;
+                        String score = null;
+                        String sub = null;
                         try {
                             response = response.getJSONObject("data");
                             JSONArray children = response.getJSONArray("children");
                             for (int i = 0; i < children.length(); i++) {
                                 JSONObject data = children.getJSONObject(i).getJSONObject("data");
-                                System.out.print(data.getString("title"));
-                                redditTitles.add(data.getString("title"));
+                                title = data.getString("title");
+                                score = data.getString("score");
+                                sub = data.getString("subreddit");
+                                System.out.println(title + " : " + sub + " : " + score);
+                                RedditDbWrapper.addRedditPost(context, new Reddit(title, Integer.parseInt(score), sub));
                             }
 
                             System.out.println(response);
@@ -61,8 +69,5 @@ public class Volley {
                 });
 
         Request<JSONObject> bob = newRequestQueue(context).add(jsonRequest);
-        System.out.print("BOB");
-        System.out.print(bob);
-        return redditTitles;
     }
 }

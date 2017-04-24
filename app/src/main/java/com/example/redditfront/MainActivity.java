@@ -3,22 +3,27 @@ package com.example.redditfront;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Property;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
-import org.json.JSONException;
+import android.widget.TextView;
 
 import java.util.List;
 
-import reddit.RedditFront;
+import reddit.Reddit;
+import reddit.RedditArrayAdapter;
+import reddit.RedditDbWrapper;
 import volley.Volley;
+
+import static reddit.RedditDbWrapper.getAllRedditPosts;
 
 
 public class MainActivity extends AppCompatActivity {
     Context contextMain;
-    Volley vol = new Volley();
+    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +35,11 @@ public class MainActivity extends AppCompatActivity {
         redditFrontButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 vol.reQuest(contextMain);
-                //System.out.print(reddit_list.get(0) + "LIST HERE");
-               /* ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(contextMain,
-                        android.R.layout.simple_list_item_1,
-                        reddit_list);
-                listReddit.setAdapter(arrayAdapter);*/
+                Volley.reQuest(contextMain);
+                List<Reddit> reddit_list = RedditDbWrapper.getAllRedditPosts(contextMain);
+                System.out.println(reddit_list.get(0).getTitle() + "_________________________________");
+                ArrayAdapter<Reddit> adapter = new RedditArrayAdapter(contextMain, 0, reddit_list);
+                listReddit.setAdapter(adapter);
             }
         });
     }
