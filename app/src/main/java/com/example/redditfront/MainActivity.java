@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
         contextMain = this;
         setContentView(R.layout.activity_main);
         Button redditFrontButton = (Button) findViewById(R.id.reddit_front_button);
-        final ListView listReddit = (ListView) findViewById(R.id.list_reddit);
+       ListView listReddit = (ListView) findViewById(R.id.list_reddit);
 
         String url = String.format("https://www.reddit.com/.json");
-        TextView textView = (TextView) findViewById(R.id.textView);
-        new GetRedditPostsTask(textView).execute(url);
+        //TextView textView = (TextView) findViewById(R.id.textView);
+        new GetRedditPostsTask(listReddit,contextMain).execute(url);
 
         /*redditFrontButton.setOnClickListener(new View.OnClickListener() {
             @Override

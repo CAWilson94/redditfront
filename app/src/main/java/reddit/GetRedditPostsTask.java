@@ -1,6 +1,9 @@
 package reddit;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -15,6 +18,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.attr.data;
+import static com.example.redditfront.R.id.score;
+
 
 /**
  * Created by charl on 26/04/2017.
@@ -22,15 +31,17 @@ import java.net.URL;
 
 public class GetRedditPostsTask extends AsyncTask<String, Void, String> {
 
-    TextView textView;
+    ListView listView;
+    Context context;
 
-    public GetRedditPostsTask(TextView textView) {
-        this.textView = textView;
+    public GetRedditPostsTask(ListView listView, Context context) {
+        this.listView = listView;
+        this.context = context;
     }
 
     @Override
     protected String doInBackground(String... strings) {
-        String title = "UNDEFINED";
+        String jsonShit = "NONE";
         try {
             URL url = new URL(strings[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -43,23 +54,42 @@ public class GetRedditPostsTask extends AsyncTask<String, Void, String> {
             while ((inputString = bufferedReader.readLine()) != null) {
                 builder.append(inputString);
             }
-            JSONObject response = new JSONObject(builder.toString());
 
+            JSONObject response = new JSONObject(builder.toString());
             response = response.getJSONObject("data");
             JSONArray children = response.getJSONArray("children");
-
-            JSONObject data = children.getJSONObject(0).getJSONObject("data");
-            title = data.getString("title");
+            jsonShit = children.toString();
+            System.out.println(jsonShit);
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-        return title;
+        return jsonShit;
     }
 
 
     @Override
     protected void onPostExecute(String temp) {
-        textView.setText("Latest Post Title: " + temp);
+        String title = "UNDEFINED";
+        String score = "UNDEFINED";
+        String subreddit = "UNDEFINED";
+        List<Reddit> redditPosts = new ArrayList<Reddit>();
+        try {
+            JSONArray children = new JSONArray(temp);
+            for (int i = 0; i < children.length(); i++) {
+                JSONObject data = children.getJSONObject(i).getJSONObject("data");
+                title = data.getString("title");
+                score = data.getString("score");
+                subreddit = data.getString("subreddit");
+                System.out.println(title + " : " + subreddit + " : " + score);
+                Reddit redditPost = new Reddit(title, Integer.valueOf(score), subreddit);
+                redditPosts.add(redditPost);
+            }
+
+            ArrayAdapter<Reddit> adapter = new RedditArrayAdapter(context, 0, redditPosts);
+            listView.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
