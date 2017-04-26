@@ -4,6 +4,11 @@ import java.util.Date;
 
 /**
  * Created by charl on 24/04/2017.
+ * <p>
+ * Need to save url string for images here, load into custom list view and plop onto each item in
+ * list.
+ * <p>
+ * Need a default image also.
  */
 
 public class Reddit {
@@ -11,15 +16,17 @@ public class Reddit {
     private int score;
     private String subreddit;
     private Date date;
+    private String image; // Add in default Image
 
     public Reddit() {
 
     }
 
-    public Reddit(String title, int score, String subreddit) {
+    public Reddit(String title, int score, String subreddit, String image) {
         this.title = title;
         this.score = score;
         this.subreddit = subreddit;
+        this.image = image;
     }
 
     public Date getDate() {

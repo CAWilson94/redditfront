@@ -6,6 +6,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,9 +72,10 @@ public class GetRedditPostsTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String temp) {
-        String title = "UNDEFINED";
-        String score = "UNDEFINED";
-        String subreddit = "UNDEFINED";
+        String title = null;
+        String score = null;
+        String subreddit = null;
+        String imageURL = null;
         List<Reddit> redditPosts = new ArrayList<Reddit>();
         try {
             JSONArray children = new JSONArray(temp);
@@ -81,8 +84,9 @@ public class GetRedditPostsTask extends AsyncTask<String, Void, String> {
                 title = data.getString("title");
                 score = data.getString("score");
                 subreddit = data.getString("subreddit");
+                imageURL = data.getString("thumbnail");// TODO: 26/04/2017 test this works default and live
                 System.out.println(title + " : " + subreddit + " : " + score);
-                Reddit redditPost = new Reddit(title, Integer.valueOf(score), subreddit);
+                Reddit redditPost = new Reddit(title, Integer.valueOf(score), subreddit, imageURL);
                 redditPosts.add(redditPost);
             }
 
