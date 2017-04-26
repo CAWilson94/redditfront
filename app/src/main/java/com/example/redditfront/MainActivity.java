@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
+import reddit.GetRedditPostsTask;
 import reddit.Reddit;
 import reddit.RedditArrayAdapter;
 import reddit.RedditDbWrapper;
@@ -33,7 +34,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button redditFrontButton = (Button) findViewById(R.id.reddit_front_button);
         final ListView listReddit = (ListView) findViewById(R.id.list_reddit);
-        redditFrontButton.setOnClickListener(new View.OnClickListener() {
+
+        String url = String.format("https://www.reddit.com/.json");
+        TextView textView = (TextView) findViewById(R.id.textView);
+        new GetRedditPostsTask(textView).execute(url);
+
+        /*redditFrontButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -43,6 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 ArrayAdapter<Reddit> adapter = new RedditArrayAdapter(contextMain, 0, reddit_list);
                 listReddit.setAdapter(adapter);
             }
-        });
+        });*/
     }
 }
