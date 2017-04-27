@@ -20,13 +20,6 @@ import java.util.Collections;
 import java.util.List;
 
 import reddit.GetRedditPostsTask;
-import reddit.Reddit;
-import reddit.RedditArrayAdapter;
-import reddit.RedditDbWrapper;
-import volley.Volley;
-
-import static reddit.RedditDbWrapper.getAllRedditPosts;
-
 
 public class MainActivity extends AppCompatActivity {
     Context contextMain;
@@ -42,19 +35,9 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.image_view);
 
         String url = String.format("https://www.reddit.com/.json");
-        //TextView textView = (TextView) findViewById(R.id.textView);
+
         new GetRedditPostsTask(listReddit,imageView, contextMain).execute(url);
 
-        /*redditFrontButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Volley.reQuest(contextMain);
-                List<Reddit> reddit_list = RedditDbWrapper.getAllRedditPosts(contextMain);
-                Collections.reverse(reddit_list);
-                ArrayAdapter<Reddit> adapter = new RedditArrayAdapter(contextMain, 0, reddit_list);
-                listReddit.setAdapter(adapter);
-            }
-        });*/
     }
 }
