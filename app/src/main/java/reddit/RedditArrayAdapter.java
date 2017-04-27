@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.redditfront.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -43,6 +45,8 @@ public class RedditArrayAdapter extends ArrayAdapter<Reddit> {
         score.setText(Integer.toString(redditPost.getScore()));
         TextView subreddit = (TextView) view.findViewById(R.id.subreddit);
         subreddit.setText(redditPost.getSubreddit());
+        ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
+        Picasso.with(context).load(redditPost.getImage()).into(imageView);
         return view;
     }
 

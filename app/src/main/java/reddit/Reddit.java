@@ -16,7 +16,7 @@ public class Reddit {
     private int score;
     private String subreddit;
     private Date date;
-    private String image; // Add in default Image
+    private String image;
 
     public Reddit() {
 
@@ -26,6 +26,14 @@ public class Reddit {
         this.title = title;
         this.score = score;
         this.subreddit = subreddit;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
         this.image = image;
     }
 

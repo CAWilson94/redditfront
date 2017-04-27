@@ -52,7 +52,7 @@ public class Volley {
                                 score = data.getString("score");
                                 sub = data.getString("subreddit");
                                 System.out.println(title + " : " + sub + " : " + score);
-                                RedditDbWrapper.addRedditPost(context, new Reddit(title, Integer.parseInt(score), sub));
+                                RedditDbWrapper.addRedditPost(context, new Reddit(title, Integer.parseInt(score), sub, sub));
                             }
 
                             System.out.println(response);

@@ -3,10 +3,9 @@ package reddit;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.android.volley.toolbox.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.data;
+import static com.example.redditfront.R.id.image;
 import static com.example.redditfront.R.id.score;
 
 
@@ -34,10 +34,12 @@ import static com.example.redditfront.R.id.score;
 public class GetRedditPostsTask extends AsyncTask<String, Void, String> {
 
     ListView listView;
+    ImageView imageView;
     Context context;
 
-    public GetRedditPostsTask(ListView listView, Context context) {
+    public GetRedditPostsTask(ListView listView, ImageView imageView, Context context) {
         this.listView = listView;
+        this.imageView = imageView;
         this.context = context;
     }
 
@@ -85,6 +87,9 @@ public class GetRedditPostsTask extends AsyncTask<String, Void, String> {
                 score = data.getString("score");
                 subreddit = data.getString("subreddit");
                 imageURL = data.getString("thumbnail");// TODO: 26/04/2017 test this works default and live
+                if (imageURL == null) {
+                    imageURL = "https://ih0.redbubble.net/image.120730129.7037/flat,800x800,075,t.u1.jpg";
+                }
                 System.out.println(title + " : " + subreddit + " : " + score);
                 Reddit redditPost = new Reddit(title, Integer.valueOf(score), subreddit, imageURL);
                 redditPosts.add(redditPost);
